@@ -1,14 +1,25 @@
 package pl.edu.wszib.springjpa.model;
 
+import javax.persistence.*;
 import java.time.Instant;
+import java.util.List;
 
+@Entity
+@Table
 public class Adres {
+
+  @Id
+  @GeneratedValue
+  private Integer id;
   private String ulica;
   private String kodPocztowy;
   private String miasto;
   private String kraj;
   private Instant createdAt;
   private Instant updatedAt;
+
+  @OneToMany(mappedBy = "adres", fetch = FetchType.LAZY)
+  private List<CV> cvs;
 
   public String getUlica() {
     return ulica;

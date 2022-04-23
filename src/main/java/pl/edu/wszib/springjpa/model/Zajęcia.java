@@ -1,12 +1,25 @@
 package pl.edu.wszib.springjpa.model;
 
+import javax.persistence.*;
 import java.util.List;
 
-public class Zajęcia {
 
+@Entity
+@Table
+public class Zajęcia {
+  @Id
+  @GeneratedValue
   private Integer id;
   private String nazwa;
+  @ManyToMany
+  @JoinTable(name = "zajecia_student",
+          joinColumns = @JoinColumn(name = "zajęcia_id", referencedColumnName = "id"),
+          inverseJoinColumns = @JoinColumn(name = "student_id", referencedColumnName = "id")
+  )
   private List<Student> student;
+
+  @ManyToOne
+  @JoinColumn
   private Prowadzacy prowadzacy;
 
   public Integer getId() {
